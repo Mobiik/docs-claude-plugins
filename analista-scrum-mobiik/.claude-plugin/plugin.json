@@ -1,0 +1,24 @@
+{
+  "name": "analista-scrum-mobiik",
+  "version": "1.0.0",
+  "description": "Agente Analista Scrum Senior con identidad visual Mobiik. Convierte propuestas comerciales en proyectos ejecutables con análisis, RAID Log, plan en Excel, estructura Jira y documentación formal de Historias de Usuario.",
+  "author": {
+    "name": "Mobiik",
+    "url": "https://mobiik.com"
+  },
+  "homepage": "https://github.com/Mobiik/docs-claude-plugins",
+  "repository": "https://github.com/Mobiik/docs-claude-plugins",
+  "license": "MIT",
+  "keywords": [
+    "scrum",
+    "agile",
+    "delivery",
+    "pre-venta",
+    "spanish",
+    "español",
+    "jira",
+    "raid",
+    "kickoff",
+    "mobiik"
+  ]
+}

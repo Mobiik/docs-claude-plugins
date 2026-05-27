@@ -1,18 +1,27 @@
-# Architecture — `{{REPO_NAME}}`
+# Architecture — `docs-claude-plugins`
 
-> **Este es un esqueleto** generado automáticamente por `Mobiik/.github/scripts/new-repo-init.yml` cuando se inicializó este repo. El owner debe llenar cada sección con la realidad de su sistema.
->
-> Para arquitectura del Quality Gates org-wide (NO de este repo), ver [`Mobiik/.github/docs/architecture.md`](https://github.com/Mobiik/.github/blob/main/docs/architecture.md).
+> Repositorio de plugins de Mobiik para Claude Code. Funciona simultáneamente como **marketplace** (catálogo de plugins) y como **monorepo** (contiene el código de los plugins).
 
 ---
 
 ## 1. Visión
 
-**¿Qué problema resuelve este sistema?** (1-2 párrafos)
+**¿Qué problema resuelve este sistema?**
+
+Estandariza el uso de Claude Code en el equipo de Scrums de Mobiik proporcionando un **agente Analista Scrum Senior** especializado en el flujo de delivery Mobiik, junto con plantillas, skills y comandos para acelerar la generación de entregables (Excel, Word, PPT, Jira) con identidad visual corporativa aplicada.
 
 **¿Para qué usuario / equipo?**
 
+- **Primario**: Scrum Masters y Analistas Scrum de Mobiik que gestionan proyectos pre-venta y delivery
+- **Secundario**: Cualquier rol en Mobiik que necesite generar documentación de proyectos con identidad visual corporativa
+
 **¿Qué lo diferencia de alternativas?**
+
+- Habla **español** (la mayoría de plugins son en inglés)
+- Está **especializado** en el flujo Mobiik (no es genérico Scrum)
+- Aplica **identidad visual corporativa** automáticamente
+- Conoce el **estándar Jira** Mobiik (nomenclatura, labels, dashboards)
+- Validado en proyecto real (TecMilenio Preselección)
 
 ---
 
@@ -20,30 +29,52 @@
 
 | Capa | Tecnología | Versión |
 |---|---|---|
-| Lenguaje principal | _(node / python / go / java / rust / ...)_ | _(20 / 3.12 / ...)_ |
-| Framework | _(Express / FastAPI / Spring / Gin / ...)_ | |
-| Base de datos | _(Postgres / Mongo / Redis / ...)_ | |
-| Cache | | |
-| Cola de mensajes | | |
-| Container runtime | _(Docker / Podman / Containerd)_ | |
-| Orquestador | _(K8s / ECS / Cloud Run / ...)_ | |
-| Cloud provider | _(Azure / AWS / GCP / on-prem)_ | |
+| Plataforma | Claude Code | latest |
+| Lenguaje de plantillas | Python | 3.9+ |
+| Generación de PPT | python-pptx | ≥0.6 |
+| Generación de Excel | openpyxl | ≥3.1 |
+| Generación de Word | python-docx | ≥1.0 |
+| Integración | MCP Atlassian | (opcional) |
+| Formato de manifest | JSON | — |
+| Documentación | Markdown | CommonMark |
 
 ---
 
 ## 3. Diagrama de componentes
 
 ```
-[Reemplazar con diagrama ASCII o link a Mermaid/draw.io]
-
-    ┌──────────┐       ┌──────────┐       ┌──────────┐
-    │ Cliente  │──────▶│ API/Edge │──────▶│ Servicio │
-    └──────────┘       └──────────┘       └──────────┘
-                                                │
-                                                ▼
-                                        ┌──────────┐
-                                        │  DB / DS │
-                                        └──────────┘
+                    ┌─────────────────────────────────────────┐
+                    │       Mobiik/docs-claude-plugins         │
+                    │      (Repositorio + Marketplace)         │
+                    └─────────────────────────────────────────┘
+                                       │
+                       ┌───────────────┴───────────────┐
+                       ▼                                ▼
+              ┌──────────────────┐           ┌──────────────────┐
+              │ .claude-plugin/  │           │ analista-scrum-  │
+              │ marketplace.json │           │     mobiik/      │
+              │  (catálogo)      │           │   (el plugin)    │
+              └──────────────────┘           └──────────────────┘
+                                                       │
+                          ┌────────────────────────────┼─────────────────────┐
+                          ▼                            ▼                     ▼
+                  ┌──────────────┐            ┌──────────────┐       ┌──────────────┐
+                  │   agents/    │            │   skills/    │       │  commands/   │
+                  │              │            │              │       │              │
+                  │ • analista-  │            │ • mobiik-    │       │ • analizar-  │
+                  │   scrum-     │            │   branding   │       │   propuesta  │
+                  │   senior     │            │ • mobiik-    │       │ • generar-*  │
+                  │              │            │   scrum-     │       │ • setup-jira │
+                  │              │            │   templates  │       │              │
+                  └──────────────┘            └──────────────┘       └──────────────┘
+                                                       │
+                                                       ▼
+                                              ┌──────────────┐
+                                              │   scripts/   │
+                                              │ Python que   │
+                                              │ generan los  │
+                                              │ entregables  │
+                                              └──────────────┘
 ```
 
 ---
@@ -52,19 +83,40 @@
 
 | Componente | Responsabilidad | Tecnología | Owner |
 |---|---|---|---|
+| `marketplace.json` | Catálogo del marketplace para `/plugin marketplace add` | JSON | Mobiik Scrum |
+| `plugin.json` | Manifest del plugin (nombre, versión, autor) | JSON | Mobiik Scrum |
+| `analista-scrum-senior.md` | Agente subagent con system prompt completo | Markdown + YAML frontmatter | Mobiik Scrum |
+| `mobiik-branding/SKILL.md` | Paleta, tipografía y reglas visuales | Markdown | Mobiik Scrum |
+| `mobiik-scrum-templates/` | Scripts Python generadores de entregables | Python | Mobiik Scrum |
+| `commands/*.md` | Comandos slash invocables | Markdown + YAML | Mobiik Scrum |
 
 ---
 
 ## 5. Flujos de datos clave
 
-### Flujo 1: _(nombre del caso de uso)_
+### Flujo 1: Instalación del plugin por un usuario
 
-1. Trigger → ...
-2. Procesamiento → ...
-3. Persistencia → ...
-4. Salida → ...
+1. Usuario ejecuta `/plugin marketplace add Mobiik/docs-claude-plugins` en Claude Code
+2. Claude Code lee `.claude-plugin/marketplace.json` del repo
+3. Usuario ejecuta `/plugin install analista-scrum-mobiik@mobiik`
+4. Claude Code descarga el subdirectorio `analista-scrum-mobiik/`
+5. Claude Code registra:
+   - El agente en su lista de subagentes (`@analista-scrum-senior`)
+   - Las skills en su catálogo de skills
+   - Los comandos en el menú de slash commands
+6. Plugin disponible en todos los proyectos del usuario
 
-### Flujo 2: ...
+### Flujo 2: Usuario genera un entregable
+
+1. Usuario abre propuesta comercial en su proyecto
+2. Ejecuta `/analizar-propuesta SOW.docx`
+3. Comando invoca al agente con el contexto de la propuesta
+4. Agente lee el archivo, extrae alcance, identifica riesgos
+5. Usuario ejecuta `/generar-kickoff-pptx`
+6. Comando referencia script en `skills/mobiik-scrum-templates/scripts/`
+7. Agente personaliza el script con datos del proyecto
+8. Ejecuta `python3 build_kickoff_pptx.py`
+9. PPT generado en `./entregables/`
 
 ---
 
@@ -72,15 +124,18 @@
 
 | Sistema | Propósito | Protocolo | Auth |
 |---|---|---|---|
+| GitHub | Hosting del repo + marketplace remoto | HTTPS / Git | OAuth (Claude Code) o credenciales del usuario |
+| Atlassian Jira | Comando `/setup-jira` para crear estructura | REST API vía MCP | OAuth o API token |
+| Atlassian Confluence | (Futuro) documentación cross-team | REST API vía MCP | OAuth |
 
 ---
 
 ## 7. Almacenamiento y persistencia
 
-- **¿Qué datos persiste el sistema?**
-- **¿Dónde?** (DB, blob storage, cache, etc.)
-- **Backup / retention policy:**
-- **Encryption at rest / in transit:**
+- **¿Qué datos persiste el sistema?** Ninguno. El plugin es stateless — toda la configuración y datos viven en el repo Git.
+- **¿Dónde?** Solo en el filesystem del usuario (cuando instalan) y en GitHub (canonical).
+- **Backup / retention policy:** Git history en GitHub. Tags para releases.
+- **Encryption at rest / in transit:** GitHub maneja TLS y storage encryption. No hay secretos en el repo.
 
 ---
 
@@ -88,8 +143,10 @@
 
 | ADR | Decisión | Status | Trade-off |
 |---|---|---|---|
-
-> Recomendado: documentar decisiones arquitectónicas en `docs/adr/0001-...` siguiendo [MADR](https://adr.github.io/madr/).
+| 0001 | Repo público vs privado | Accepted (público) | Mayor difusión vs. control de IP. Decisión: la identidad visual no es secreto comercial. |
+| 0002 | Marketplace + plugin en mismo repo | Accepted | Simplicidad vs. flexibilidad multi-plugin. Decisión: simplicidad gana para v1. |
+| 0003 | Python para generación de archivos | Accepted | vs. Node.js. Decisión: Python tiene mejores librerías para Office docs. |
+| 0004 | Español como idioma principal | Accepted | vs. inglés. Decisión: usuario target es Mobiik LATAM. |
 
 ---
 
@@ -101,66 +158,56 @@ Este repo está protegido por el sistema **Quality Gates org-wide** de Mobiik.
 
 1. ✅ **pre-flight** — Conventional Commits, file size <5MB, lang detect
 2. ✅ **secrets-scan** — Gitleaks + TruffleHog (verified)
-3. ✅ **lint-format** — Auto-detect (ESLint/Ruff/golangci/Checkstyle/Clippy)
+3. ✅ **lint-format** — Auto-detect (Markdown lint, Python lint)
 4. ✅ **sast** — Semgrep + CodeQL (security-extended)
 5. ✅ **sca** — Trivy fs + Dependabot HIGH+ alerts API
-6. ✅ **tests-coverage** — ≥80% configurable
-7. ⚠️ **sonarqube-gate** — corre si existe `sonar-project.properties`
-8. ✅ **build** — Compila + Docker + Trivy image + SBOM
-9. ✅ **quality-gate-result** — Aggregator final (if: always())
+6. ⚠️ **tests-coverage** — No aplica (plugin sin tests automatizados aún)
+7. ⚠️ **sonarqube-gate** — Aplicará cuando se configure `sonar-project.properties`
+8. ✅ **build** — Validación de JSON schema (marketplace.json, plugin.json)
+9. ✅ **quality-gate-result** — Aggregator final
 
 ### Stages auto-activos según contenido del repo
 
 | Stage | Se activa si | Cubre |
 |---|---|---|
-| 🔵 **Checkov** (4.5) | hay `*.tf`, `Dockerfile`, `Chart.yaml`, K8s manifests, `*.bicep` | IaC compliance (CIS, NIST) |
-| 🔵 **Hadolint** (4.6) | hay `Dockerfile` | Dockerfile lint (best practices) |
-| 🔵 **OSV-Scanner** (4.7) | siempre | Vulns complementarias a Trivy |
-| 🔵 **kube-linter** (4.8) | hay K8s manifests / Helm | K8s reliability + security |
+| 🔵 **OSV-Scanner** | siempre | Vulns complementarias a Trivy |
 
-### Dependabot (18 ecosystems)
+### Dependabot
 
-Cubre todo: npm, pip, nuget, maven, gradle, gomod, cargo, pub (Flutter), composer (PHP), bundler (Ruby), swift, mix (Elixir), docker, docker-compose, terraform, helm, devcontainers, github-actions.
-
-### Renovate Bot (complementario)
-
-Si tu repo necesita cobertura para Bash scripts, PowerShell, asdf `.tool-versions`, GitHub releases binarios → Renovate ya está configurado vía `renovate.json` (canonical, apunta al preset compartido `Mobiik/.github/configs/renovate.config.json`).
-
-### Weekly Security Digest
-
-Cada lunes 09:00 UTC: si tienes alertas Code Scanning / Secret Scanning / Dependabot HIGH+CRITICAL introducidas por tus commits (detectado vía `git blame`), recibirás un issue assigned a ti en este mismo repo con el resumen y SLA.
-
-### Cómo deshabilitar un stage en tu repo
-
-No es posible (eres del lado consumidor del Required Workflow). Para excepciones documentadas, abrir issue en `Mobiik/.github` solicitando review de `@Mobiik/platform-engineering`.
-
-Referencia completa: [`Mobiik/.github/docs/architecture.md`](https://github.com/Mobiik/.github/blob/main/docs/architecture.md).
+Cubre: `pip` (las dependencias Python de los scripts).
 
 ---
 
 ## 10. Cómo monitorear este sistema
 
-- **Logs:** _(ubicación, formato, retention)_
-- **Métricas:** _(Datadog / Grafana / Prometheus / CloudWatch / etc.)_
-- **Alertas:** _(canal, escalación, on-call)_
-- **Health checks:** _(endpoint, frecuencia)_
+- **Logs:** N/A (plugin estático)
+- **Métricas:** Adoption del plugin medible por:
+  - Estrellas / forks del repo
+  - Issues abiertos
+  - Feedback directo del equipo de Scrums Mobiik
+- **Alertas:** Notificaciones de issues en GitHub
+- **Health checks:** Validación manual de instalación en cada release
 
 ---
 
 ## 11. Cómo correr local
 
 ```bash
-# Pre-requisitos
-# ...
+# Clonar el repo
+git clone https://github.com/Mobiik/docs-claude-plugins.git
+cd docs-claude-plugins
 
-# Instalación
-# ...
+# Instalar dependencias de los scripts Python
+pip3 install --user python-pptx openpyxl python-docx
 
-# Levantar
-# ...
+# Probar localmente en Claude Code
+# Abrir Claude Code y ejecutar:
+#   /plugin marketplace add ./
+#   /plugin install analista-scrum-mobiik@mobiik
 
-# Smoke test
-# ...
+# Validar JSON schemas
+python3 -c "import json; json.load(open('.claude-plugin/marketplace.json'))"
+python3 -c "import json; json.load(open('analista-scrum-mobiik/.claude-plugin/plugin.json'))"
 ```
 
-Ver [`README.md`](README.md) para guía completa.
+Ver [`README.md`](../README.md) para guía completa.
