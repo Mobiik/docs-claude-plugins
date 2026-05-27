@@ -1,0 +1,19 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "mobiik",
+  "description": "Plugins oficiales de Mobiik para Claude Code — herramientas de delivery, scrum y branding corporativo",
+  "owner": {
+    "name": "Mobiik",
+    "url": "https://mobiik.com"
+  },
+  "plugins": [
+    {
+      "name": "analista-scrum-mobiik",
+      "description": "Agente Analista Scrum Senior + identidad visual Mobiik. Convierte propuestas comerciales en proyectos ejecutables (RAID, Excel, Jira, Word de HU, PPT de Kickoff).",
+      "source": "./analista-scrum-mobiik",
+      "category": "productivity",
+      "version": "1.0.0",
+      "keywords": ["scrum", "agile", "delivery", "mobiik", "spanish", "jira", "pre-venta", "raid", "kickoff"]
+    }
+  ]
+}
