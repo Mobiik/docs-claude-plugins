@@ -6,7 +6,7 @@
 
 | Plugin | Descripción | Versión |
 |---|---|---|
-| **[analista-scrum-mobiik](./analista-scrum-mobiik/)** | Agente Analista Scrum Senior + identidad visual Mobiik + plantillas Excel/Word/PPT/Jira | 1.0.0 |
+| **[analista-scrum-mobiik](./analista-scrum-mobiik/)** | Agente Analista Scrum Senior + identidad visual Mobiik + plantillas Excel/Word/PPT/Jira + cartas de cierre, minutas, negociación y estatus | 1.1.0 |
 
 ## Instalación rápida
 
@@ -49,14 +49,18 @@ docs-claude-plugins/
 │   │   └── analista-scrum-senior.md
 │   ├── skills/
 │   │   ├── mobiik-branding/
-│   │   └── mobiik-scrum-templates/
+│   │   └── mobiik-scrum-templates/    ← 8 scripts Python (Excel/Word/PPT)
 │   ├── commands/
 │   │   ├── analizar-propuesta.md
 │   │   ├── generar-raid.md
 │   │   ├── generar-plan-excel.md
 │   │   ├── setup-jira.md
 │   │   ├── generar-hu-docx.md
-│   │   └── generar-kickoff-pptx.md
+│   │   ├── generar-kickoff-pptx.md
+│   │   ├── generar-carta-cierre.md
+│   │   ├── generar-minuta.md
+│   │   ├── negociar.md
+│   │   └── generar-estatus-pptx.md
 │   └── README.md
 ├── docs/
 │   ├── GUIA-DE-USO.md                 ← Guía completa para Scrums Mobiik

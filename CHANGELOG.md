@@ -6,6 +6,32 @@ El formato sigue [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.1.0/) 
 
 ---
 
+## [1.1.0] — 2026-05-28
+
+### Added
+
+- **4 nuevas habilidades de relación con el cliente** en el plugin `analista-scrum-mobiik`:
+  - **Cartas de cierre** — cartas formales de cierre (proyecto, fase o entregable) con tono cordial y *relationship-forward*.
+  - **Minutas de reunión** — generación de minutas a partir de transcripciones/notas (parafraseadas), con tabla de acciones y marcado `[POR CONFIRMAR]`.
+  - **Negociación y resolución de problemas** — protocolo que entrega replanteo por intereses, 2–3 estrategias diferenciadas y recomendación (método Harvard, BATNA, CNV).
+  - **Presentación de estatus** — reporte ejecutivo en PPT (4 slides) con semáforo de salud, métricas de Jira, riesgos y próximos pasos.
+- **4 scripts Python nuevos** en la skill `mobiik-scrum-templates/scripts/`:
+  - `build_carta_cierre_docx.py` — Carta de Cierre (Word)
+  - `build_minuta_docx.py` — Minuta de Reunión (Word)
+  - `build_negociacion_docx.py` — Guía de Preparación de Negociación (Word)
+  - `build_estatus_pptx.py` — Presentación de Estatus (PPT, 4 slides)
+- **4 comandos slash nuevos**: `/generar-carta-cierre`, `/generar-minuta`, `/negociar`, `/generar-estatus-pptx`.
+- **Protocolo de Negociación** documentado en la skill `mobiik-scrum-templates` (intereses, BATNA, estrategias diferenciadas).
+
+### Changed
+
+- Agente `analista-scrum-senior` ampliado con las 4 nuevas habilidades, reglas (no inventar, parafrasear, adaptar formato) y comandos.
+- Skill `mobiik-scrum-templates` ahora documenta 8 generadores (antes 4).
+- `plugin.json` y `marketplace.json` actualizados a **v1.1.0** con keywords ampliadas.
+- Los entregables de estatus usan el footer corporativo "Mobiik — AI, Cloud & Software Development" y el logo partido MOB·IIK, conforme a la plantilla oficial.
+
+---
+
 ## [1.0.0] — 2026-05-27
 
 ### Added
@@ -69,5 +95,6 @@ git push origin v1.X.Y
 
 ---
 
+[1.1.0]: https://github.com/Mobiik/docs-claude-plugins/releases/tag/v1.1.0
 [1.0.0]: https://github.com/Mobiik/docs-claude-plugins/releases/tag/v1.0.0
-[Unreleased]: https://github.com/Mobiik/docs-claude-plugins/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/Mobiik/docs-claude-plugins/compare/v1.1.0...HEAD
