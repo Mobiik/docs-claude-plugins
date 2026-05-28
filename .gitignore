@@ -1,0 +1,11 @@
+# Entornos virtuales Python
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# Entregables generados por los scripts (no se versionan)
+entregables/
+
+# Sistema
+.DS_Store

@@ -6,6 +6,21 @@ El formato sigue [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.1.0/) 
 
 ---
 
+## [1.2.0] — 2026-05-28
+
+### Added
+
+- **Instrucción de invocación `@scrummobiik`** documentada para el equipo de Mobiik (README del repo, README del plugin y archivo del agente). `@scrummobiik` es el alias de invocación acordado; el nombre técnico del subagente sigue siendo `analista-scrum-senior`.
+- **Asset `cosmic_dim.jpeg`** incluido en `mobiik-scrum-templates/scripts/assets/` para la portada del PPT de Kickoff (antes el script lo requería pero el archivo no estaba versionado).
+- **`.gitignore`** en la raíz del repo (excluye `.venv/`, `entregables/`, `__pycache__`, `.DS_Store`).
+
+### Fixed
+
+- **`build_kickoff_pptx.py`** fallaba con `FileNotFoundError` porque exigía `./assets/cosmic_dim.jpeg` relativo al directorio de ejecución y el archivo no existía. Ahora el asset se resuelve relativo al script (`__file__`) y es opcional: si falta, se omite la imagen decorativa y el fondo negro permanece.
+- **Quality Gate de SonarCloud (stage 7)** fallaba/quedaba en *pending* porque `sonar-project.properties` era un skeleton con placeholders `PLEASE_REPLACE_*` y `sonar.sources=src/`/`tests/` inexistentes. Se hizo **opt-out** eliminando el archivo (el stage 7 hace *skip* elegante vía `hashFiles`) y documentando la decisión en `docs/architecture.md` (ADR 0005). Los demás gates (secrets, SAST/CodeQL, SCA, build) siguen activos.
+
+---
+
 ## [1.1.0] — 2026-05-28
 
 ### Added
