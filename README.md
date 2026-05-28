@@ -6,7 +6,7 @@
 
 | Plugin | Descripción | Versión |
 |---|---|---|
-| **[analista-scrum-mobiik](./analista-scrum-mobiik/)** | Agente Analista Scrum Senior + identidad visual Mobiik + plantillas Excel/Word/PPT/Jira + cartas de cierre, minutas, negociación y estatus | 1.1.0 |
+| **[analista-scrum-mobiik](./analista-scrum-mobiik/)** | Agente Analista Scrum Senior + identidad visual Mobiik + plantillas Excel/Word/PPT/Jira + cartas de cierre, minutas, negociación y estatus | 1.2.0 |
 
 ## Instalación rápida
 
@@ -20,6 +20,23 @@ En Claude Code, ejecuta:
 ```
 
 Listo. El agente, las skills y los comandos slash quedan disponibles en **todos** tus proyectos automáticamente.
+
+## Cómo invocar el agente
+
+Una vez instalado, el equipo de Mobiik puede convocar al agente mencionándolo con:
+
+```
+@scrummobiik
+```
+
+Ejemplos:
+
+```
+@scrummobiik analiza esta propuesta comercial y genera el RAID Log
+@scrummobiik arma la estructura del proyecto en Jira
+```
+
+> El nombre técnico del subagente es `analista-scrum-senior`; **`@scrummobiik`** es el alias de invocación acordado por el equipo. También puedes usar los comandos slash (`/analizar-propuesta`, `/generar-raid`, etc.) listados más abajo.
 
 ### Opción B — Clone local
 

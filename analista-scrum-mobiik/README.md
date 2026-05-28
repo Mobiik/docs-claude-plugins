@@ -9,6 +9,7 @@ Convierte propuestas comerciales en proyectos ejecutables completos: análisis d
 ### 1 Agente
 
 - **`analista-scrum-senior`** — Subagente especializado en delivery híbrido pre-venta. Habla español, conoce el flujo de Mobiik, sigue las reglas de identidad visual.
+  - **Invocación:** el equipo lo convoca con **`@scrummobiik`** (alias acordado; nombre técnico `analista-scrum-senior`).
 
 ### 2 Skills
 

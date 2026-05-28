@@ -2,6 +2,7 @@
 Kickoff PPT — Migración Preselección TecMilenio
 Estándar visual Mobiik: fondo oscuro, acento #AADC1E, Arial Black titulares.
 """
+import os
 from pptx import Presentation
 from pptx.util import Inches, Pt, Emu
 from pptx.dml.color import RGBColor
@@ -118,7 +119,15 @@ def add_accent_card(slide, x, y, w, h, *, fill_color=BG_PANEL):
     add_rect(slide, x, y, w, h, fill_color)
     add_rect(slide, x, y, Emu(60000), h, LIME)
 
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+
+
 def add_image(slide, path, x, y, w, h):
+    # El asset decorativo se busca junto al script; si no está, se omite y el fondo negro queda.
+    if not os.path.isabs(path):
+        path = os.path.join(SCRIPT_DIR, path)
+    if not os.path.exists(path):
+        return None
     return slide.shapes.add_picture(path, x, y, width=w, height=h)
 
 

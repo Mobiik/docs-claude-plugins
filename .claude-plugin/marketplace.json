@@ -12,7 +12,7 @@
       "description": "Agente Analista Scrum Senior + identidad visual Mobiik. Convierte propuestas comerciales en proyectos ejecutables (RAID, Excel, Jira, Word de HU, PPT de Kickoff) y asiste en la relación con el cliente (cartas de cierre, minutas, negociación, estatus).",
       "source": "./analista-scrum-mobiik",
       "category": "productivity",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "keywords": ["scrum", "agile", "delivery", "mobiik", "spanish", "jira", "pre-venta", "raid", "kickoff", "carta-cierre", "minuta", "negociacion", "estatus"]
     }
   ]

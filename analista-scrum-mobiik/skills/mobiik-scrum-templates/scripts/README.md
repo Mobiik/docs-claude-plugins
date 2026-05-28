@@ -53,4 +53,5 @@ python3 build_estatus_pptx.py        # → entregables/Estatus ... .pptx
 - Los scripts de delivery (kickoff, RAID, plan, HU) contienen datos del proyecto **TecMilenio Preselección** como ejemplo funcional. Los scripts de relación con el cliente (carta de cierre, minuta, negociación, estatus) usan **placeholders `[...]`** listos para reemplazar.
 - La paleta y tipografía (Arial Black, `#AADC1E`) NO debe modificarse — es estándar corporativo.
 - El generador de estatus (`build_estatus_pptx.py`) usa el footer "Mobiik — AI, Cloud & Software Development" y el logo partido MOB·IIK, conforme a la plantilla oficial de estatus.
+- El generador de kickoff (`build_kickoff_pptx.py`) usa el asset decorativo `assets/cosmic_dim.jpeg` (incluido). El script lo resuelve relativo a su propia ubicación, así que funciona desde cualquier directorio; si el archivo se elimina, la imagen simplemente se omite.
 - Si necesitas el manual completo de la identidad visual, consulta la skill `mobiik-branding`.
