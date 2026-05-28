@@ -17,6 +17,7 @@ El formato sigue [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.1.0/) 
 ### Fixed
 
 - **`build_kickoff_pptx.py`** fallaba con `FileNotFoundError` porque exigía `./assets/cosmic_dim.jpeg` relativo al directorio de ejecución y el archivo no existía. Ahora el asset se resuelve relativo al script (`__file__`) y es opcional: si falta, se omite la imagen decorativa y el fondo negro permanece.
+- **Quality Gate de SonarCloud (stage 7)** fallaba/quedaba en *pending* porque `sonar-project.properties` era un skeleton con placeholders `PLEASE_REPLACE_*` y `sonar.sources=src/`/`tests/` inexistentes. Se hizo **opt-out** eliminando el archivo (el stage 7 hace *skip* elegante vía `hashFiles`) y documentando la decisión en `docs/architecture.md` (ADR 0005). Los demás gates (secrets, SAST/CodeQL, SCA, build) siguen activos.
 
 ---
 

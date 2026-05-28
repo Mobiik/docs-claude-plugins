@@ -162,9 +162,11 @@ Este repo está protegido por el sistema **Quality Gates org-wide** de Mobiik.
 4. ✅ **sast** — Semgrep + CodeQL (security-extended)
 5. ✅ **sca** — Trivy fs + Dependabot HIGH+ alerts API
 6. ⚠️ **tests-coverage** — No aplica (plugin sin tests automatizados aún)
-7. ⚠️ **sonarqube-gate** — Aplicará cuando se configure `sonar-project.properties`
+7. ⏭️ **sonarqube-gate** — **Opt-out** (skip elegante). Ver ADR 0005 abajo.
 8. ✅ **build** — Validación de JSON schema (marketplace.json, plugin.json)
 9. ✅ **quality-gate-result** — Aggregator final
+
+> **ADR 0005 — Opt-out de SonarCloud.** Este repo es un monorepo de plugins (Markdown + scripts Python de plantillas) sin carpetas `src/`/`tests/` ni suite de pruebas automatizadas, por lo que el análisis de SonarCloud no aporta valor. Se eliminó `sonar-project.properties`; el stage 7 hace *skip* elegante vía `hashFiles` (el archivo era un skeleton con placeholders `PLEASE_REPLACE_*` que hacía fallar el gate a propósito). Los demás gates de seguridad y calidad (secrets-scan, SAST/CodeQL, SCA, build) siguen activos. Si en el futuro se agregan tests o se quiere cobertura Sonar, registrar el proyecto en SonarCloud (org `mobiik`), agregar el secret `SONAR_TOKEN` y recrear `sonar-project.properties` con `projectKey`/`projectName` reales y `sonar.sources` apuntando a los scripts.
 
 ### Stages auto-activos según contenido del repo
 
