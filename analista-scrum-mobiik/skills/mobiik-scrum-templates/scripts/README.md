@@ -1,6 +1,6 @@
 # Scripts de Plantillas Mobiik Scrum
 
-Estos 4 scripts Python generan los entregables principales del flujo Scrum Mobiik con identidad visual aplicada. Son **plantillas funcionales basadas en un proyecto real** (Migración TecMilenio Preselección) que sirven como punto de partida.
+Estos 8 scripts Python generan los entregables principales del flujo Scrum Mobiik y de la relación con el cliente, con identidad visual aplicada. Son **plantillas funcionales** que sirven como punto de partida; edita la sección de datos de cada una.
 
 ## Cómo personalizar para tu proyecto
 
@@ -20,10 +20,14 @@ Antes de correr cualquier script:
 mkdir -p entregables
 
 # Generar cada artefacto:
-python3 build_kickoff_pptx.py    # → entregables/KO ... .pptx
-python3 build_raid_xlsx.py        # → entregables/RAID Log ... .xlsx
-python3 build_plan_xlsx.py        # → entregables/Plan de Trabajo ... .xlsx
-python3 build_hu_docx.py          # → entregables/Historias de Usuario ... .docx
+python3 build_kickoff_pptx.py       # → entregables/KO ... .pptx
+python3 build_raid_xlsx.py           # → entregables/RAID Log ... .xlsx
+python3 build_plan_xlsx.py           # → entregables/Plan de Trabajo ... .xlsx
+python3 build_hu_docx.py             # → entregables/Historias de Usuario ... .docx
+python3 build_carta_cierre_docx.py   # → entregables/Carta de Cierre ... .docx
+python3 build_minuta_docx.py         # → entregables/Minuta ... .docx
+python3 build_negociacion_docx.py    # → entregables/Preparacion Negociacion ... .docx
+python3 build_estatus_pptx.py        # → entregables/Estatus ... .pptx
 ```
 
 ## Estructura de cada script
@@ -46,6 +50,7 @@ python3 build_hu_docx.py          # → entregables/Historias de Usuario ... .do
 
 ## Notas
 
-- Los scripts contienen datos del proyecto **TecMilenio Preselección** como ejemplo funcional. Reemplázalos por los datos de tu proyecto.
+- Los scripts de delivery (kickoff, RAID, plan, HU) contienen datos del proyecto **TecMilenio Preselección** como ejemplo funcional. Los scripts de relación con el cliente (carta de cierre, minuta, negociación, estatus) usan **placeholders `[...]`** listos para reemplazar.
 - La paleta y tipografía (Arial Black, `#AADC1E`) NO debe modificarse — es estándar corporativo.
+- El generador de estatus (`build_estatus_pptx.py`) usa el footer "Mobiik — AI, Cloud & Software Development" y el logo partido MOB·IIK, conforme a la plantilla oficial de estatus.
 - Si necesitas el manual completo de la identidad visual, consulta la skill `mobiik-branding`.
